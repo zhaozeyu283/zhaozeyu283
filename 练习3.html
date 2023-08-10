@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>自动贩卖机</title>
+    <script>
+        function x(){
+           
+           var c=document.getElementById("c").checked;
+           var o=document.getElementById("o").checked;
+           var g=document.getElementById("g").checked;
+           if(c==false && o==false && g==false){
+            alert("没选")
+           }
+
+           var qian=document.getElementById("qian").value;
+           if(qian==""){
+            alert("没投")
+           }
+
+           var drink="";
+           var xu=0 ;
+           if(c==true ){
+            xu=120 ;
+            drink="コーヒー";
+           }
+           if(o==true){
+            xu=150 ;
+            drink="オレンジ";
+           }
+           if(g==true){
+            xu=200;
+            drink="牛乳";
+           }
+           if(xu > Number(qian)){
+            alert("不够");
+           }
+           document.getElementById("res").innerHTML=drink+(Number(qian)-Number(xu));
+
+        }
+    </script>
+    </head>
+    <body> 
+        120
+        コーヒー
+        <input type="radio" name="drink" id="c">     
+        150
+        オレンジ
+        <input type="radio" name="drink" id="o">
+        200
+        牛乳
+        <input type="radio" name="drink" id="g"><br>
+        投入
+        <input type="number" id="qian">
+        <input type="button" value="购入" onclick="x()"><br>
+        结果：
+        <span id="res"></span>
+    </body>
+</html>
