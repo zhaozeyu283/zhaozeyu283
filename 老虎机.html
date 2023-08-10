@@ -1,0 +1,36 @@
+
+<style>
+    table.tr.td{
+        border: 1px,solid,black;
+    }
+</style>
+<script>
+    function x(){
+        var arg={
+            0 : "",
+            1 : "",
+            2 : "",
+            3 : "",
+            4 : "",
+            5 : "",
+            6 : "",
+            7 : "",
+            8 : "",
+        };
+        var res=Random(0,8);
+        console.log(res);
+    }
+
+    function Random(min, max) {
+    return Math.round(Math.random() * (max - min)) + min;
+}
+</script>
+<body>
+    <table>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</body><input type="button" value="kai" onclick="x()">
