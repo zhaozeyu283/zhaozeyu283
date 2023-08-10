@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+      <meta charset="UTF-8">
+      <title>Clock</title>
+      <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+      <h1>時計</h1>
+      <div>
+        <canvas id="canvassample" width="300" height="300" style="background-color: #ddd;"></canvas>
+        <h2>現在時刻<span id="hour"></span>:<span id="minute"></span>:<span id="second"></span></h2>
+      </div>
+  </body>
+</html>
+<script>
+$(window).on('load', function(){
+  repeat();
+})
+
+function repeat() { //1000ミリ秒ごとに繰り返し
+ setInterval('clock()',1000);
+}
+
+function clock() { //canvasに描画
+  var d = new Date();
+  var second = d.getSeconds();
+  var second_hand = second *6;
+  var minute = d.getMinutes();
+  var minute_hand = (second/60 + minute) *6;
+  var hour = d.getHours();
+  if (hour < 12){
+    var hour_hand = (minute/60 + hour)*30;
+  }else{
+    var hour_hand = ((minute/60 + hour) -12)*30;
+  }
+
+  var canvas = document.getElementById('canvassample');
+  /* canvas要素の存在チェックとCanvas未対応ブラウザの対処 */
+  if ( ! canvas || ! canvas.getContext ) {
+    return false;
+  }
+  var ctx = canvas.getContext('2d');
+  ctx.beginPath();
+  ctx.moveTo(150, 150);
+  ctx.lineWidth = 6;
+  ctx.arc(150, 150, 100, ((hour_hand-90)*Math.PI)/180, ((hour_hand-90)*Math.PI)/180, false);
+  ctx.clearRect(0, 0, 300, 300);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(150, 150);
+  ctx.lineWidth = 3;
+  ctx.arc(150, 150, 130, ((minute_hand-90)*Math.PI)/180, ((minute_hand-90)*Math.PI)/180, false);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(150, 150);
+  ctx.lineWidth = 1;
+  ctx.arc(150, 150, 120, ((second_hand-90)*Math.PI)/180, ((second_hand-90)*Math.PI)/180, false);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(150, 150, 140, 0, Math.PI*2, false);
+  ctx.stroke();
+  time();
+}
+
+function time() { //デジタル時計
+  var d = new Date();
+  var hour = d.getHours();
+  document.getElementById("hour").innerHTML= hour;
+  var minute = d.getMinutes();
+  document.getElementById("minute").innerHTML= minute;
+  var second = d.getSeconds();
+  document.getElementById("second").innerHTML= second;
+}
+</script>
